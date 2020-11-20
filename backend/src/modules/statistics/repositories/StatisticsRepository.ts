@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm';
-import Statistic from '../models/Statistic';
+import Statistic from '@modules/statistics/infra/typeorm/entities/Statistic';
 
 @EntityRepository(Statistic)
 class StatisticsRepository extends Repository<Statistic> {

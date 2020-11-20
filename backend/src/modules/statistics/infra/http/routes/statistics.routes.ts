@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { getCustomRepository } from 'typeorm';
 
-import StatisticsRepository from '../repositories/StatisticsRepository';
-import CreateStatisticService from '../services/CreateStatisticService';
+import StatisticsRepository from '@modules/statistics/repositories/StatisticsRepository';
+import CreateStatisticService from '@modules/statistics/services/CreateStatisticService';
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const statisticsRouter = Router();
 

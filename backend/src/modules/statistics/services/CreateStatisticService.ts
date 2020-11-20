@@ -1,9 +1,9 @@
 import { getCustomRepository } from 'typeorm';
 
-import Statistic from '../models/Statistic';
+import Statistic from '@modules/statistics/infra/typeorm/entities/Statistic';
 import StatisticsRepository from '../repositories/StatisticsRepository';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 interface Request {
   deck: string;
