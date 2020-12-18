@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { getCustomRepository } from 'typeorm';
 
 import StatisticsRepository from '@modules/statistics/infra/typeorm/repositories/StatisticsRepository';
 import CreateStatisticService from '@modules/statistics/services/CreateStatisticService';
@@ -11,11 +10,11 @@ const statisticsRepository = new StatisticsRepository();
 
 statisticsRouter.use(ensureAuthenticated);
 
-statisticsRouter.get('/', async (request, response) => {
-  const statistics = await statisticsRepository.find();
+// statisticsRouter.get('/', async (request, response) => {
+//   const statistics = await statisticsRepository.find();
 
-  return response.json(statistics);
-});
+//   return response.json(statistics);
+// });
 
 statisticsRouter.post('/', async (request, response) => {
   const { deck, wins, loses, duelist_id } = request.body;
