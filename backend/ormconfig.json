@@ -6,7 +6,7 @@
   "password": "duelist",
   "database": "duelist_statistics",
   "entities": [
-    "./src/models/*.ts"
+    "./src/modules/*.ts"
   ],
   "migrations": [
     "./src/database/migrations/*.ts"

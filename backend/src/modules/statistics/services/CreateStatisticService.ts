@@ -1,11 +1,9 @@
-import { getCustomRepository } from 'typeorm';
-
 import Statistic from '@modules/statistics/infra/typeorm/entities/Statistic';
-import StatisticsRepository from '../repositories/StatisticsRepository';
+import IStatisticsRepository from '@modules/statistics/repositories/IStatisticsRepository';
 
 import AppError from '@shared/errors/AppError';
 
-interface Request {
+interface IRequest {
   deck: string;
   wins: number;
   loses: number;
@@ -13,21 +11,19 @@ interface Request {
 }
 
 class CreateStatisticService {
-  public async execute({ deck, wins, loses, duelist_id }: Request): Promise<Statistic> {
-    const statisticsRepository = getCustomRepository(StatisticsRepository);
+  constructor(private statisticsRepository: IStatisticsRepository) {}
 
+  public async execute({ deck, wins, loses, duelist_id }: IRequest): Promise<Statistic> {
     if ((wins | loses) < 0) {
       throw new AppError('The value is below than 0.');
     }
 
-    const statistic = statisticsRepository.create({
+    const statistic = await this.statisticsRepository.create({
       deck,
       wins,
       loses,
       duelist_id,
     });
-
-    await statisticsRepository.save(statistic);
 
     return statistic;
   }
