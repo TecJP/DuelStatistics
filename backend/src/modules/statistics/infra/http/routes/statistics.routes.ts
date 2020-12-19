@@ -6,7 +6,6 @@ import CreateStatisticService from '@modules/statistics/services/CreateStatistic
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const statisticsRouter = Router();
-const statisticsRepository = new StatisticsRepository();
 
 statisticsRouter.use(ensureAuthenticated);
 
@@ -17,6 +16,8 @@ statisticsRouter.use(ensureAuthenticated);
 // });
 
 statisticsRouter.post('/', async (request, response) => {
+  const statisticsRepository = new StatisticsRepository();
+
   const { deck, wins, loses, duelist_id } = request.body;
 
   const createStatistic = new CreateStatisticService(statisticsRepository);
