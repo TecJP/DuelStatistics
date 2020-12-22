@@ -1,11 +1,10 @@
 import { Router } from 'express';
-import { container } from 'tsyringe';
-
-import CreateStatisticService from '@modules/statistics/services/CreateStatisticService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import StatisticsController from '@modules/statistics/infra/http/controllers/StatisticsController';
 
 const statisticsRouter = Router();
+const statisticsController = new StatisticsController();
 
 statisticsRouter.use(ensureAuthenticated);
 
@@ -15,15 +14,6 @@ statisticsRouter.use(ensureAuthenticated);
 //   return response.json(statistics);
 // });
 
-statisticsRouter.post('/', async (request, response) => {
-
-  const { deck, wins, loses, duelist_id } = request.body;
-
-  const createStatistic = container.resolve(CreateStatisticService);
-
-  const statistic = await createStatistic.execute({ deck, wins, loses, duelist_id });
-
-  return response.json(statistic);
-});
+statisticsRouter.post('/', statisticsController.create);
 
 export default statisticsRouter;
