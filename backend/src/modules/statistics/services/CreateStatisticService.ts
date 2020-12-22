@@ -1,3 +1,5 @@
+import { injectable, inject } from 'tsyringe';
+
 import Statistic from '@modules/statistics/infra/typeorm/entities/Statistic';
 import IStatisticsRepository from '@modules/statistics/repositories/IStatisticsRepository';
 
@@ -10,8 +12,12 @@ interface IRequest {
   duelist_id: string;
 }
 
+@injectable()
 class CreateStatisticService {
-  constructor(private statisticsRepository: IStatisticsRepository) {}
+  constructor(
+    @inject('StatisticsRepository')
+    private statisticsRepository: IStatisticsRepository,
+  ) {}
 
   public async execute({ deck, wins, loses, duelist_id }: IRequest): Promise<Statistic> {
     if ((wins | loses) < 0) {

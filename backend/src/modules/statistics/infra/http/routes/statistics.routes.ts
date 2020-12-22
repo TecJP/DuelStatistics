@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import { container } from 'tsyringe';
 
-import StatisticsRepository from '@modules/statistics/infra/typeorm/repositories/StatisticsRepository';
 import CreateStatisticService from '@modules/statistics/services/CreateStatisticService';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -16,11 +16,10 @@ statisticsRouter.use(ensureAuthenticated);
 // });
 
 statisticsRouter.post('/', async (request, response) => {
-  const statisticsRepository = new StatisticsRepository();
 
   const { deck, wins, loses, duelist_id } = request.body;
 
-  const createStatistic = new CreateStatisticService(statisticsRepository);
+  const createStatistic = container.resolve(CreateStatisticService);
 
   const statistic = await createStatistic.execute({ deck, wins, loses, duelist_id });
 
