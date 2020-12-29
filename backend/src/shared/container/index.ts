@@ -1,5 +1,7 @@
 import { container } from 'tsyringe';
 
+import '@modules/users/providers';
+
 import IStatisticsRepository from '@modules/statistics/repositories/IStatisticsRepository';
 import StatisticsRepository from '@modules/statistics/infra/typeorm/repositories/StatisticsRepository';
 
